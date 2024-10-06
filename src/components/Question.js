@@ -1,14 +1,18 @@
+import { useContext } from "react";
 import Answer from "./Answer";
+import { QuizContext } from "./contexts/quiz";
 
-const Question = () => {
+const Question = ({ questions }) => {
+  const [quizState] = useContext(QuizContext);
+  const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+  console.log("currentQuestionIndex", currentQuestion);
   return (
     <div>
-      <div className="question">Question</div>
+      <div className="question">{currentQuestion.question}</div>
       <div className="answers">
-        <Answer />
-        <Answer />
-        <Answer />
-        <Answer />
+        {quizState.answers.map((answer, index) => (
+          <Answer answerText={answer} key={index} />
+        ))}
       </div>
     </div>
   );
